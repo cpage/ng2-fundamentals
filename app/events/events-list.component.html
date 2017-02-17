@@ -3,7 +3,7 @@
     <hr />
     <div class="row">
         <div *ngFor="let event of events" class="col-md-4">
-            <event-card [event]="event" (click)="handleCardClick(event)"></event-card>
+            <event-card [event]="event"></event-card>
         </div>
     </div>
 </div>

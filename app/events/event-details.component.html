@@ -3,15 +3,15 @@
 
     <div class="row">
         <div class="col-md-11">
-            <h2>{{event?.name}} </h2>
+            <h2>{{event?.name | uppercase}} </h2>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-6">
-            <div><strong>Date:</strong> {{event?.date}}</div>
+            <div><strong>Date:</strong> {{event?.date | date:'shortDate'}}</div>
             <div><strong>Time:</strong> {{event?.time}}</div>
-            <div><strong>Price:</strong> ${{event?.price}}</div>
+            <div><strong>Price:</strong> {{event?.price | currency:'USD':true}}</div>
         </div>
         <div class="col-md-6">
             <address>
@@ -27,11 +27,28 @@
         <div class="col-md-2">
             <h3 style="margin:0;">Sessions</h3>
         </div>
-
+        <div class="col-md-7 form-inline" style="margin-bottom: 10px;">
+            <div class="form-group" style="margin-right: 20px;">
+                <label for="sortSelect">Sort:</label>
+                <select [(ngModel)]="sortBy" class="form-control" id="sortSelect">
+                    <option value="name">Name</option>
+                    <option value="votes">Votes</option>
+                </select>
+            </div>
+            <div class="form-group" style="margin-left: 20px;">
+                <label for="levelFilter">Level:</label>
+                <select [(ngModel)]="filterBy" class="form-control" id="levelFilter">
+                    <option value="all">All</option>
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="advanced">Advanced</option>
+                </select>
+            </div>
+        </div>
         <div class="col-md-2">
             <a (click)="addSession()">Add Session</a>
         </div>
     </div>
-    <session-list *ngIf="!addMode" [sessions]="event?.sessions"></session-list>
-    <create-session *ngIf="addMode"></create-session>
+    <session-list *ngIf="!addMode" [sessions]="event?.sessions" [activeFilter]="filterBy" [activeSort]="sortBy"></session-list>
+    <create-session *ngIf="addMode" (saveNewSession)="saveNewSession($event)" (cancelAdd)="cancelAddSession()"></create-session>
 </div>

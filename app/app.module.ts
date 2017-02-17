@@ -12,18 +12,28 @@ import {
     EventListResolverService,
     EventService,
     CreateSessionComponent,
-    SessionListComponent
+    SessionListComponent,
+    DurationPipe
 } from './events/index';
 
 import { EventsAppComponent } from './events-app.component';
 import { NavbarComponent } from './nav/navbar.component';
 
-import { Error404Component } from './common/error-404.component';
 
-import { ToastrService } from './common/toastr.service';
+import {
+    Error404Component,
+    CollapsibleWellComponent,
+    SimpleModalComponent,
+    ModalTriggerDirective,
+    TOASTR_TOKEN,
+    JQ_TOKEN
+} from './common/index';
+
 import { AuthService } from './users/auth.service';
 
 import { appRoutes } from './routes';
+
+
 
 @NgModule({
     imports: [BrowserModule, FormsModule, ReactiveFormsModule, RouterModule.forRoot(appRoutes)],
@@ -36,9 +46,20 @@ import { appRoutes } from './routes';
         CreateSessionComponent,
         SessionListComponent,
         NavbarComponent,
-        Error404Component
+        Error404Component,
+        CollapsibleWellComponent,
+        SimpleModalComponent,
+        ModalTriggerDirective,
+        DurationPipe
     ],
-    providers: [EventService, ToastrService, EventRouteActivator, EventListResolverService, AuthService],
+    providers: [
+        EventService,
+        { provide: TOASTR_TOKEN, useValue: toastr },
+        { provide: JQ_TOKEN, useValue: jQuery },
+        EventRouteActivator,
+        EventListResolverService,
+        AuthService
+    ],
     bootstrap: [EventsAppComponent]
 })
 export class AppModule {
