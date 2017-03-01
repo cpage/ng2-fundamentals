@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { EventService } from './services/event.service';
-import { ToastrService } from '../common/toastr.service';
 import { IEvent } from './models/event.models';
 
 @Component({
@@ -42,12 +42,18 @@ export class CreateEventComponent implements OnInit {
     }
 
     saveEvent(formValues) {
-        this.eventService.saveEvent(formValues);
-        this.isDirty = false;
-        this.router.navigate(['/events']);
+        this.eventService.saveEvent(formValues).subscribe((event: IEvent) => {
+            this.isDirty = false;
+            this.router.navigate(['/events']);
+        });
     }
 
     cancel() {
         this.router.navigate(['/events']);
+    }
+
+    validateLocation(form: NgForm) {
+        (<FormGroup>form.controls['location']).controls['address'].updateValueAndValidity();
+
     }
 }

@@ -12,6 +12,6 @@ export class EventListResolverService implements Resolve<any> {
     }
 
     resolve(): Observable<IEvent[]> {
-        return this.eventSvc.getEvents().map(events => events);
+        return this.eventSvc.getEvents();
     }
 }

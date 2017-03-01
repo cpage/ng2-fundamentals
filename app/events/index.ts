@@ -7,3 +7,4 @@ export * from './session-list.component';
 export * from './services/index';
 export * from './models/event.models';
 export * from './duration.pipe';
+export * from './location-validator.directive';

@@ -1,7 +1,7 @@
 <h1>Login</h1>
 <hr>
 <div class="col-md-4">
-  <form #loginForm="ngForm" (ngSubmit)="login(loginForm)" autocomplete="off" novalidate>
+  <form #loginForm="ngForm" (ngSubmit)="login(loginForm.value)" autocomplete="off" novalidate>
     <div class="form-group">
       <label for="userName">User Name:</label>
       <em *ngIf="loginForm.controls.userName?.invalid && (loginForm.controls.userName?.touched || hoverShowErrors)">Required</em>
@@ -20,4 +20,8 @@
     </span>
     <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
   </form>
+  <br>
+  <div *ngIf="loginInvalid" class="alert alert-danger">
+    Invalid login values.
+  </div>
 </div>

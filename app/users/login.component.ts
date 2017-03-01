@@ -14,13 +14,22 @@ import { AuthService } from './auth.service';
 export class LoginComponent implements OnInit {
     constructor(private authSvc: AuthService, private router: Router) { }
 
-    ngOnInit() {
+    private loginInvalid: boolean;
 
+    ngOnInit() {
+        this.loginInvalid = false;
     }
 
     login(formValues) {
-        this.authSvc.loginUser(formValues.userName, formValues.password);
-        this.gotoDefaultPage();
+        this.authSvc.loginUser(formValues.userName, formValues.password)
+            .subscribe(response => {
+                if (!response) {
+                    this.loginInvalid = true;
+                } else {
+                    this.gotoDefaultPage();
+                }
+
+            });
     }
 
     cancel() {
